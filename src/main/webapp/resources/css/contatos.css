@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* FUNDO */
+body {
+    min-height: 100vh;
+    background-color: #eef3f6;
+}
+
+/* VOLTAR */
+.btn-voltar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 22px;
+    text-decoration: none;
+    color: #4f5b60;
+}
+
+.btn-voltar:hover {
+    color: #2f3a3f;
+}
+
+/* NOVO CONTATO */
+.btn-novo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 18px;
+    background-color: #b7cbd4;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.btn-novo:hover {
+    background-color: #9fb9c5;
+}
+
+/* TÍTULO */
+.titulo {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 22px;
+    color: #000;
+}
+
+/* LISTA */
+.lista-container {
+    width: 360px;
+    margin: 25px auto;
+    background-color: #b7cbd4;
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+/* ITEM */
+.contato-item {
+    background-color: #fff;
+    margin: 8px 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* INFO */
+.contato-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.nome {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.email {
+    font-size: 12px;
+    color: #666;
+}
+
+/* EXCLUIR */
+.btn-excluir {
+    font-size: 18px;
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-excluir:hover {
+    color: #c0392b;
+}
