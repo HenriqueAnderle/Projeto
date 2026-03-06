@@ -23,17 +23,14 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import modelo.entidade.solicitacao.Solicitacao;
 import modelo.entidade.solicitacaoMateriaisServicos.SolicitacaoMateriaisServicos;
+import modelo.entidade.usuario.Usuario;
 
 public class PdfSolicitacao {
 
-    public byte[] gerarSolicitacaoMateriaisServicos(
-            SolicitacaoMateriaisServicos sms,
-            List<Solicitacao> solicitacoes,
-            ServletContext servletContext) throws Exception {
+    public byte[] gerarSolicitacaoMateriaisServicos(Usuario usuario, SolicitacaoMateriaisServicos sms, List<Solicitacao> solicitacoes, ServletContext servletContext) throws Exception {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Document document = new Document(PageSize.A4, 36, 36, 36, 36);
@@ -44,7 +41,6 @@ public class PdfSolicitacao {
         
         Font label = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
         Font value = new Font(Font.FontFamily.HELVETICA, 10);
-        Font tableHeader = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
         
         Font fontePadrao = new Font(Font.FontFamily.HELVETICA, 10);
         Font fontePadraoNegrito = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
@@ -101,11 +97,22 @@ public class PdfSolicitacao {
         solicitacaoNumeroCell.setPadding(4);
         dadosDaSolicitacao.addCell(solicitacaoNumeroCell);
         
-        PdfPCell idSolicitacaoCell = new PdfPCell(new Phrase(String.valueOf(sms.getIdSolicitacao()), fontePadrao));
+        if(sms.getLogo() == true) {
+        
+        PdfPCell idSolicitacaoCell = new PdfPCell(new Phrase(String.valueOf(usuario.getContadorSolicitacao()), fontePadrao));
         idSolicitacaoCell.setColspan(1);
         idSolicitacaoCell.setPadding(4);
         dadosDaSolicitacao.addCell(idSolicitacaoCell);
 
+        }else {
+        	
+        	PdfPCell idSolicitacaoCell = new PdfPCell(new Phrase(String.valueOf(usuario.getContadorSolicitacao2()), fontePadrao));
+            idSolicitacaoCell.setColspan(1);
+            idSolicitacaoCell.setPadding(4);
+            dadosDaSolicitacao.addCell(idSolicitacaoCell);
+        	
+        }
+        
         PdfPCell dataSolicitacaoTituloCell = new PdfPCell(new Phrase("DATA DA SOLICITAÇÃO", fontePadraoNegrito));
         dataSolicitacaoTituloCell.setBackgroundColor(cinzaClaro);
         dataSolicitacaoTituloCell.setColspan(1);
@@ -299,6 +306,7 @@ public class PdfSolicitacao {
         PdfPCell observacaoCell = new PdfPCell(new Phrase(sms.getObservacao(), value));
         observacaoCell.setBorder(Rectangle.BOX);
         observacaoCell.setPadding(4);
+        observacaoCell.setMinimumHeight(25);
         observacaoCell.setColspan(1);
         
         dadosDaSolicitacao2.addCell(observacaoLabelCell);

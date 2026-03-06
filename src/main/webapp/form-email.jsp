@@ -4,15 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Contatos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/form-email.css">
 </head>
 <body>
 
 <a class="btn-voltar" href="voltar-form" title="Voltar">←</a>
-
-
 
 <div class="container">
 
@@ -90,6 +89,11 @@
 
             <button type="button" class="removerDestinatario">✕</button>
         </div>
+        
+        <div>
+		  <input type="checkbox" id="emailRemetente" name="emailRemetente" value="true">
+		  <label for="emailRemetente"> Enviar com Cópia para Remetente</label><br>
+		</div>
 
     </form>
 

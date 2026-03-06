@@ -4,7 +4,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Contatos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obras</title>
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/contatos.css">
 </head>
@@ -21,6 +22,8 @@
 </a>
 
 <h1 class="titulo">Obras</h1>
+
+<div class="container">
 
 <!-- LISTA -->
 <div class="lista-container">
@@ -41,6 +44,7 @@
         </div>
     </c:forEach>
 
+</div>
 </div>
 
 </body>

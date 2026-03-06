@@ -4,6 +4,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contatos</title>
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/contatos.css">
@@ -22,25 +23,26 @@
 
 <h1 class="titulo">Contatos</h1>
 
-<!-- LISTA -->
-<div class="lista-container">
+<div class="container">
 
-    <c:forEach var="contato" items="${contatos}">
-        <div class="contato-item">
+    <div class="lista-container">
+        <c:forEach var="contato" items="${contatos}">
+            <div class="contato-item">
 
-            <div class="contato-info">
-                <span class="nome">${contato.nome}</span>
-                <span class="email">${contato.email}</span>
+                <div class="contato-info">
+                    <span class="nome">${contato.nome}</span>
+                    <span class="email">${contato.email}</span>
+                </div>
+
+                <a class="btn-excluir"
+                   href="deletar-contato?idContato=${contato.idContato}"
+                   title="Excluir">
+                    ✕
+                </a>
+
             </div>
-
-            <a class="btn-excluir"
-               href="deletar-contato?idContato=${contato.idContato}"
-               title="Excluir">
-                ✕
-            </a>
-
-        </div>
-    </c:forEach>
+        </c:forEach>
+    </div>
 
 </div>
 

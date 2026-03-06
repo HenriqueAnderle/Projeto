@@ -37,7 +37,7 @@ public class EmailEnviadoServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getServletPath();
-
+		
 		try {
 			
 			switch (action) {

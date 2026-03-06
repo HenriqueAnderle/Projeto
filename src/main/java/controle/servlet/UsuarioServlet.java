@@ -2,10 +2,12 @@ package controle.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,7 @@ import modelo.entidade.usuario.Usuario;
 import org.mindrot.jbcrypt.BCrypt;
 
 
-@WebServlet(urlPatterns = {"/novo-usuario", "/inserir-usuario", "/deletar-usuario", "/editar-usuario", "/atualizar-usuario", "/novo-login", "/logar-usuario", "/deslogar-usuario", "/voltar-home"})
+@WebServlet(urlPatterns = {"/novo-usuario", "/inserir-usuario", "/deletar-usuario", "/editar-usuario", "/atualizar-usuario", "/novo-login", "/logar-usuario", "/deslogar-usuario", "/voltar-home", "/Projeto"})
 
 public class UsuarioServlet extends HttpServlet {
 	
@@ -40,7 +42,7 @@ public class UsuarioServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	    response.setCharacterEncoding("UTF-8");
 	    response.setContentType("text/html; charset=UTF-8");
-		
+	    
 		String action = request.getServletPath();
 
 		try {
@@ -154,6 +156,12 @@ public class UsuarioServlet extends HttpServlet {
 	
 	private void mostrarFormularioLoginUsuario(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 
+		HttpSession sessao = request.getSession(false);
+	    if (sessao != null && sessao.getAttribute("usuarioLogado") != null) {
+	        response.sendRedirect("home.jsp");
+	        return;
+	    }
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 		
@@ -171,9 +179,26 @@ public class UsuarioServlet extends HttpServlet {
 			if (BCrypt.checkpw(senha, usuarioRecuperado.getSenha())) {
 				
 				HttpSession sessao = request.getSession();
-			    sessao.setAttribute("usuarioLogado", usuarioRecuperado);
-			    
-			    sessao.setMaxInactiveInterval(24 * 60 * 60);
+				sessao.setAttribute("usuarioLogado", usuarioRecuperado);
+				sessao.setMaxInactiveInterval(60 * 60 * 24 * 30);
+				
+				String lembrar = request.getParameter("lembrar");
+
+				if ("true".equals(lembrar)) {
+
+				    // Gera token aleatório seguro
+				    String token = UUID.randomUUID().toString();
+
+				    // Salva no banco
+				    dao.salvarRememberToken(usuarioRecuperado.getIdUsuario(), token);
+
+				    Cookie cookieRemember = new Cookie("rememberMe", token);
+				    cookieRemember.setMaxAge(60 * 60 * 24 * 30); // 30 dias
+				    cookieRemember.setPath("/");
+				    cookieRemember.setHttpOnly(true);
+				    cookieRemember.setSecure(false);
+				    response.addCookie(cookieRemember);
+				}
 				
 			    response.sendRedirect("home.jsp");
 			    return;
@@ -186,20 +211,29 @@ public class UsuarioServlet extends HttpServlet {
 		
 	}
 	
-	private void deslogarUsuario(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-		
-		RequestDispatcher dispatcher = null;
-		
-		HttpSession sessao = request.getSession();
-		
-		if(sessao != null) {
-			
-			sessao.invalidate();
-			
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-			
-		}
+	private void deslogarUsuario(HttpServletRequest request, HttpServletResponse response)
+	        throws SQLException, IOException, ServletException {
+
+	    HttpSession sessao = request.getSession(false);
+
+	    if (sessao != null) {
+
+	        Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
+
+	        if (usuario != null) {
+	            dao.salvarRememberToken(usuario.getIdUsuario(), null);
+	        }
+
+	        sessao.invalidate();
+	    }
+
+	    // Remove cookie
+	    Cookie cookieRemember = new Cookie("rememberMe", "");
+	    cookieRemember.setMaxAge(0);
+	    cookieRemember.setPath("/");
+	    response.addCookie(cookieRemember);
+
+	    response.sendRedirect("index.jsp");
 	}
 	
 	private void voltarHome(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -226,6 +260,15 @@ public class UsuarioServlet extends HttpServlet {
 	}
 	
 	private void listarUsuarios(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		
+		HttpSession sessao = request.getSession(false);
+	    if (sessao != null && sessao.getAttribute("usuarioLogado") != null) {
+	        response.sendRedirect("home.jsp");
+	        return;
+	    }
+	    
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+	    dispatcher.forward(request, response);
 		
 	}
 	

@@ -67,7 +67,7 @@ public class SolicitacaoServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	    response.setCharacterEncoding("UTF-8");
 	    response.setContentType("text/html; charset=UTF-8");
-		
+	    
 		String action = request.getServletPath();
 
 		try {
@@ -143,12 +143,25 @@ public class SolicitacaoServlet extends HttpServlet {
 	        
 	        String observacao = request.getParameter("observacao");
 	        boolean logo = Boolean.parseBoolean(request.getParameter("logo"));
-
-	        solicitacaoMateriaisServicos = new SolicitacaoMateriaisServicos(obra, solicitante, etapaDaObra, null, dataSolicitacao, previsaoChegada, observacao, logo, usuario);
+	        
+	        long contadorSolicitacao;
+	        
+	        if(logo == true) {
+	        	
+	        contadorSolicitacao = usuario.getContadorSolicitacao();
+	        
+	        }else {
+	        	
+	        	contadorSolicitacao = usuario.getContadorSolicitacao2();
+	        	
+	        }
+	        
+	        solicitacaoMateriaisServicos = new SolicitacaoMateriaisServicos(contadorSolicitacao, obra, solicitante, etapaDaObra, null, dataSolicitacao, previsaoChegada, observacao, logo, usuario);
 	        
 	        sessao.setAttribute("solicitacaoMateriaisServicos", solicitacaoMateriaisServicos);
 	    } else {
 	        // EDIÇÃO - atualizar dados gerais
+	    	
 	        solicitacaoMateriaisServicos.setObra(new Obra(request.getParameter("obra")));
 	        solicitacaoMateriaisServicos.setSolicitante(Solicitante.valueOf(request.getParameter("solicitante")));
 	        solicitacaoMateriaisServicos.setEtapaDaObra(EtapaDaObra.valueOf(request.getParameter("etapaDaObra")));
@@ -171,14 +184,18 @@ public class SolicitacaoServlet extends HttpServlet {
 	    // Processar imagem (se nova)
 	    Part imagemPart = request.getPart("imagem");
 	    if (imagemPart != null && imagemPart.getSize() > 0) {
-	    	
-	    	long contador = isEdicao ? solicitacaoMateriaisServicos.getIdSolicitacao() : usuario.proximoRelatorio(usuario);
-	    	String nomeArquivo = contador + "_imagem_" + Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
-	    	solicitacaoMateriaisServicos.setImagem("uploads/" + nomeArquivo);
-	                           
-	        String pastaUpload = getServletContext().getRealPath("/uploads");
-	        new File(pastaUpload).mkdirs();
-	        imagemPart.write(pastaUpload + File.separator + nomeArquivo);
+	        // Usar contador da solicitação ou timestamp para nome único
+	        long contadorSolicitacao = usuario.getContadorSolicitacao();
+	        String nomeArquivo = contadorSolicitacao + "_imagem_" + 
+	                            Paths.get(imagemPart.getSubmittedFileName()).getFileName().toString();
+	        
+	        String uploadPath = getServletContext().getRealPath("/uploads");
+	        File dir = new File(uploadPath);
+	        if (!dir.exists()) {
+	            dir.mkdirs();
+	        }
+	        
+	        imagemPart.write(uploadPath + File.separator + nomeArquivo);
 	        solicitacaoMateriaisServicos.setImagem("uploads/" + nomeArquivo);
 	    }
 
@@ -208,7 +225,7 @@ public class SolicitacaoServlet extends HttpServlet {
 	    // === GERAR PDF ===
 	    try {
 	        PdfSolicitacao pdfService = new PdfSolicitacao();
-	        byte[] pdf = pdfService.gerarSolicitacaoMateriaisServicos(solicitacaoMateriaisServicos, solicitacoes, getServletContext());
+	        byte[] pdf = pdfService.gerarSolicitacaoMateriaisServicos(usuario, solicitacaoMateriaisServicos, solicitacoes, getServletContext());
 	        
 	        request.getSession().setAttribute("pdfGerado", pdf);
 

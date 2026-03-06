@@ -21,12 +21,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		try {
 
 			conexao = conectarBanco();
-			insert = conexao.prepareStatement("INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, contadorRelatorio_usuario) VALUES (?,?,?,?)");
+			insert = conexao.prepareStatement("INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, contadorRelatorio_usuario, contadorSolicitacao_usuario, contadorSolicitacao2_usuario) VALUES (?,?,?,?,?,?)");
 
 			insert.setString(1, usuario.getNome());
 			insert.setString(2, usuario.getEmail());
 			insert.setString(3, usuario.getSenha());
 			insert.setLong(4, usuario.getContadorRelatorio());
+			insert.setLong(5, usuario.getContadorSolicitacao());
+			insert.setLong(6, usuario.getContadorSolicitacao2());
 
 			insert.execute();
 
@@ -147,6 +149,122 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
 	}
 	
+	public void atualizarUsuarioContadorSolicitacao(Usuario usuario, long contadorSolicitacao) {
+		
+		Connection conexao = null;
+        PreparedStatement update = null;
+
+        try {
+
+            conexao = conectarBanco();
+            update = conexao.prepareStatement("UPDATE usuario SET contadorSolicitacao_usuario = ? WHERE id_usuario = ?");
+            
+            update.setLong(1, usuario.getContadorSolicitacao());
+            update.setLong(2, usuario.getIdUsuario());
+
+            update.execute();
+
+        } catch (SQLException erro) {
+            erro.printStackTrace();
+        }
+
+        finally {
+            try {
+                if (update != null) update.close();
+                if (conexao != null) conexao.close();
+            } catch (SQLException erro) {
+                erro.printStackTrace();
+            }
+        }
+	}
+	
+	public void atualizarUsuarioContadorSolicitacao2(Usuario usuario, long contadorSolicitacao2) {
+		
+		Connection conexao = null;
+        PreparedStatement update = null;
+
+        try {
+
+            conexao = conectarBanco();
+            update = conexao.prepareStatement("UPDATE usuario SET contadorSolicitacao2_usuario = ? WHERE id_usuario = ?");
+            
+            update.setLong(1, usuario.getContadorSolicitacao2());
+            update.setLong(2, usuario.getIdUsuario());
+
+            update.execute();
+
+        } catch (SQLException erro) {
+            erro.printStackTrace();
+        }
+
+        finally {
+            try {
+                if (update != null) update.close();
+                if (conexao != null) conexao.close();
+            } catch (SQLException erro) {
+                erro.printStackTrace();
+            }
+        }
+	}
+	
+	public void salvarRememberToken(long idUsuario, String token) throws SQLException {
+	    
+		Connection conexao = null;
+        PreparedStatement update = null;
+		
+        try {
+        
+		String sql = "UPDATE usuario SET remember_token = ? WHERE id_usuario = ?";
+	    
+		conexao = conectarBanco();
+		update = conexao.prepareStatement(sql);
+	    
+		update.setString(1, token);
+		update.setLong(2, idUsuario);
+		update.executeUpdate();
+		
+        } catch (SQLException erro) {
+            erro.printStackTrace();
+        }
+
+        finally {
+            try {
+                if (update != null) update.close();
+                if (conexao != null) conexao.close();
+            } catch (SQLException erro) {
+                erro.printStackTrace();
+            }
+        }
+	}
+	
+	public Usuario buscarPorRememberToken(String token) throws SQLException {
+
+	    String sql = "SELECT * FROM usuario WHERE remember_token = ?";
+
+	    try (Connection conexao = conectarBanco();
+	         PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+	        stmt.setString(1, token);
+
+	        try (ResultSet rs = stmt.executeQuery()) {
+
+	            if (rs.next()) {
+	                return new Usuario(
+	                        rs.getLong("id_usuario"),
+	                        rs.getString("nome_usuario"),
+	                        rs.getString("email_usuario"),
+	                        rs.getString("senha_usuario"),
+	                        rs.getLong("contadorRelatorio_usuario"),
+	                        rs.getLong("contadorSolicitacao_usuario"),
+	                        rs.getLong("contadorSolicitacao2_usuario")
+	                );
+	            }
+	        }
+	    }
+
+	    return null;
+	}
+	
 	public boolean existeUsuario(Usuario usuario) {
 		
 		Connection conexao = null;
@@ -213,8 +331,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	            String email = resultado.getString("email_usuario");
 	            String senha = resultado.getString("senha_usuario");
 	            long contadorRelatorio = resultado.getLong("contadorRelatorio_usuario");
+	            long contadorSolicitacao = resultado.getLong("contadorSolicitacao_usuario");
+	            long contadorSolicitacao2 = resultado.getLong("contadorSolicitacao2_usuario");
  
-	            usuarioRecuperado = new Usuario(idUsuario, nome, email, senha, contadorRelatorio);
+	            usuarioRecuperado = new Usuario(idUsuario, nome, email, senha, contadorRelatorio, contadorSolicitacao, contadorSolicitacao2);
 	        }
 
 	    } catch (SQLException erro) {
@@ -254,8 +374,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	            String nome = resultado.getString("nome_usuario");
 	            String senha = resultado.getString("senha_usuario");
 	            long contadorRelatorio = resultado.getLong("contadorRelatorio_usuario");
- 
-	            usuarioRecuperado = new Usuario(idUsuario, nome, email, senha, contadorRelatorio);
+	            long contadorSolicitacao = resultado.getLong("contadorSolicitacao_usuario");
+	            long contadorSolicitacao2 = resultado.getLong("contadorSolicitacao2_usuario");
+	            
+	            usuarioRecuperado = new Usuario(idUsuario, nome, email, senha, contadorRelatorio, contadorSolicitacao, contadorSolicitacao2);
 	            
 	            return usuarioRecuperado;
 	        }

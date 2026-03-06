@@ -9,6 +9,7 @@
 body {
     background-color: #eef3f6;
     min-height: 100vh;
+    padding: 20px;
 }
 
 /* VOLTAR */
@@ -24,89 +25,84 @@ body {
 /* TÍTULO */
 .titulo {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 /* CENTRALIZA */
 .container {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 /* CARD */
 .card {
     background-color: #fff;
-    width: 420px;
-    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 25px;
     border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* CAMPOS */
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 label {
     font-size: 13px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
-/* INPUTS / SELECT / TEXTAREA */
+/* INPUTS */
 input,
 select,
 textarea {
     border: 1px solid #000;
     border-radius: 6px;
-    padding: 6px 8px;
-    font-size: 13px;
+    padding: 8px 10px;
+    font-size: 14px;
+    width: 100%;
 }
 
 textarea {
-    min-height: 70px;
-    resize: none;
-}
-
-/* LINHA COM 3 CAMPOS */
-.linha-3 {
-    display: flex;
-    gap: 10px;
-}
-
-.linha-3 .form-group {
-    flex: 1;
+    min-height: 80px;
+    resize: vertical;
 }
 
 /* SEÇÕES */
 h2 {
-    margin-top: 18px;
-    margin-bottom: 8px;
-    font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 17px;
 }
 
 /* BOTÃO + */
 .btn-add {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border: none;
     background-color: #4f5b60;
     color: #fff;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 /* ITENS DINÂMICOS */
 #solicitacaoContainer > div {
     border-top: 1px solid #ddd;
-    padding-top: 10px;
-    margin-top: 10px;
+    padding-top: 15px;
+    margin-top: 15px;
     position: relative;
 }
 
-/* BOTÃO REMOVER (X) */
+/* BOTÃO REMOVER */
 .remover {
     position: absolute;
     top: 0;
@@ -117,16 +113,11 @@ h2 {
     cursor: pointer;
 }
 
-/* IMAGEM */
-input[type="file"] {
-    border: none;
-}
-
 /* AÇÕES FINAIS */
 .acoes-finais {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .btn-primario {
@@ -134,24 +125,21 @@ input[type="file"] {
     background-color: #4f5b60;
     color: #fff;
     border: none;
-    padding: 8px;
+    padding: 10px;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
 }
 
-.btn-secundario {
-    flex: 1;
-    background-color: #6c757d;
-    color: #fff;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
+.btn-primario:hover {
+    opacity: 0.9;
 }
 
+/* LOGOS */
 .opcoes-logo {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .opcao {
@@ -160,6 +148,8 @@ input[type="file"] {
     cursor: pointer;
     text-align: center;
     border-radius: 8px;
+    flex: 1;
+    min-width: 120px;
 }
 
 .opcao input {
@@ -171,8 +161,10 @@ input[type="file"] {
 }
 
 .opcao .logo-box {
-    width: 140px;
-    height: 140px;
+    width: 100%;
+    max-width: 140px;
+    height: 120px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,4 +174,33 @@ input[type="file"] {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .btn-voltar {
+        font-size: 18px;
+    }
+
+    .opcoes-logo {
+        flex-direction: column;
+    }
+
+    .acoes-finais {
+        flex-direction: column;
+    }
+
+    .btn-primario {
+        width: 100%;
+    }
 }

@@ -8,89 +8,125 @@ body {
     background: #eef2f4;
     display: flex;
     justify-content: center;
-    padding: 40px 0;
+    padding: 40px 15px;
 }
 
 /* CARD */
 .container {
-    width: 420px;
-    background: #bfcfd6;
-    padding: 20px;
-    border-radius: 14px;
+    width: min(100%, 520px);
+    background: linear-gradient(145deg, #bfcfd6, #d5e0e6);
+    padding: clamp(18px, 4vw, 28px);
+    border-radius: 18px;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.08),
+        0 10px 20px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
 }
 
+.container:hover {
+    transform: translateY(-4px);
+}
+
+/* VOLTAR */
 .btn-voltar {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    font-size: 22px;
+    font-size: clamp(20px, 4vw, 24px);
     text-decoration: none;
     color: #000;
+    transition: 0.3s ease;
+}
+
+.btn-voltar:hover {
+    transform: scale(1.1);
 }
 
 /* TÍTULOS */
 h2 {
     padding: 8px 10px;
     border-radius: 8px;
-    margin: 16px 0 10px;
+    margin: 18px 0 12px;
+    font-size: clamp(16px, 3vw, 20px);
 }
 
 /* LISTAS */
 .lista {
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
 .item {
     background: #fff;
-    border-radius: 6px;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 12px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    transition: 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 .info strong {
     display: block;
+    font-size: clamp(14px, 3vw, 16px);
 }
 
 .info span {
-    font-size: 12px;
+    font-size: clamp(12px, 3vw, 14px);
     color: #666;
+    word-break: break-word;
 }
 
 /* AÇÕES */
 .acao {
     text-decoration: none;
-    font-size: 22px;
+    font-size: clamp(20px, 4vw, 22px);
     font-weight: bold;
     color: #222;
+    transition: 0.3s ease;
+}
+
+.acao:hover {
+    transform: scale(1.2);
 }
 
 /* DESTINATÁRIOS */
 .destinatario {
     background: white;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
     position: relative;
+    transition: 0.3s ease;
+}
+
+.destinatario:hover {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
 }
 
 .destinatario label {
-    font-size: 14px;
+    font-size: clamp(13px, 3vw, 14px);
 }
 
 .destinatario input {
     width: 100%;
-    padding: 6px 8px;
-    border-radius: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
     border: 1px solid #333;
+    margin-top: 5px;
+    font-size: clamp(13px, 3vw, 15px);
 }
 
+/* REMOVER */
 .removerDestinatario {
     position: absolute;
-    right: 8px;
-    top: 30px;
+    right: 10px;
+    top: 32px;
     background: none;
     border: none;
     font-size: 18px;
@@ -99,24 +135,51 @@ h2 {
 
 /* BOTÃO + */
 .btn-add {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
     border: none;
     background: #4b5a61;
     color: white;
-    font-size: 22px;
+    font-size: 24px;
     cursor: pointer;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+    transition: 0.3s ease;
+}
+
+.btn-add:hover {
+    transform: scale(1.1);
 }
 
 /* BOTÕES FINAIS */
 .botoes button {
-    padding: 8px 14px;
-    border-radius: 8px;
+    padding: 10px 18px;
+    border-radius: 10px;
     border: none;
     background: #4b5a61;
     color: white;
     cursor: pointer;
-    margin-right: 10px;
+    font-size: clamp(14px, 3vw, 16px);
+    transition: 0.3s ease;
+}
+
+.botoes button:hover {
+    background: #3c484e;
+    transform: translateY(-2px);
+}
+
+/* IFRAME RESPONSIVO */
+iframe {
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+/* MOBILE EXTRA */
+@media (max-width: 480px) {
+    body {
+        padding: 20px 10px;
+    }
 }

@@ -9,25 +9,29 @@
 body {
     min-height: 100vh;
     background-color: #eef3f6;
+    padding: 20px;
 }
 
-/* VOLTAR */
+/* BOTÃO VOLTAR */
 .btn-voltar {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    font-size: 22px;
+    font-size: clamp(20px, 4vw, 24px);
     text-decoration: none;
     color: #4f5b60;
+    z-index: 1000;
+    transition: 0.3s ease;
 }
 
 .btn-voltar:hover {
     color: #2f3a3f;
+    transform: scale(1.1);
 }
 
-/* NOVO CONTATO */
+/* BOTÃO NOVO */
 .btn-novo {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     padding: 8px 18px;
@@ -35,64 +39,108 @@ body {
     color: #fff;
     text-decoration: none;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
+    transition: 0.3s ease;
 }
 
 .btn-novo:hover {
     background-color: #9fb9c5;
+    transform: translateY(-2px);
 }
 
 /* TÍTULO */
 .titulo {
     text-align: center;
-    margin-top: 60px;
-    font-size: 22px;
-    color: #000;
+    margin-top: 80px;
+    font-size: clamp(20px, 4vw, 26px);
+    color: #2f3a3f;
+}
+
+/* CENTRALIZAÇÃO */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
 /* LISTA */
 .lista-container {
-    width: 360px;
-    margin: 25px auto;
+    width: min(100%, 500px);
     background-color: #b7cbd4;
-    border-radius: 10px;
-    padding: 10px 0;
+    border-radius: 15px;
+    padding: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    backdrop-filter: blur(10px);
 }
 
 /* ITEM */
 .contato-item {
     background-color: #fff;
-    margin: 8px 10px;
-    padding: 10px 12px;
-    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: 0.3s ease;
+}
+
+.contato-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 /* INFO */
 .contato-info {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .nome {
-    font-size: 14px;
+    font-size: clamp(14px, 3vw, 16px);
     font-weight: 600;
+    color: #000;
+    word-break: break-word;
 }
 
 .email {
-    font-size: 12px;
-    color: #666;
+    font-size: clamp(12px, 3vw, 14px);
+    color: #555;
+    word-break: break-word;
 }
 
 /* EXCLUIR */
 .btn-excluir {
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 20px);
     color: #000;
     text-decoration: none;
+    transition: 0.3s ease;
+    padding: 5px;
 }
 
 .btn-excluir:hover {
     color: #c0392b;
+    transform: scale(1.2);
+}
+
+/* RESPONSIVO EXTRA PARA TELAS PEQUENAS */
+@media (max-width: 480px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .titulo {
+        margin-top: 70px;
+    }
+
+    .lista-container {
+        padding: 10px;
+    }
+
+    .contato-item {
+        padding: 10px;
+    }
+
 }

@@ -4,8 +4,9 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/home.css">
 </head>
 <body>
@@ -17,6 +18,8 @@
 
 <!-- CONTEÚDO CENTRAL -->
 <div class="home-container">
+
+	<img src="img/logo.png" alt="IdheaEngenharia" width="230" height="180">
 
     <h1>Bem-vindo, ${usuarioLogado.nome}!</h1>
 

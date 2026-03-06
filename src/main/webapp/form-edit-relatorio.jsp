@@ -4,10 +4,11 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório Vistoria</title>
+
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/form-relatorio.css">
 </head>
-<body>
 
 <!-- VOLTAR -->
 <a class="btn-voltar" href="voltar-home" title="Voltar">←</a>
@@ -42,7 +43,7 @@
     <div class="linha-3">
         <div class="form-group">
             <label>Condição Climática :</label>
-            <select name="condicaoClimatica">
+            <select name="condicaoClimatica" required>
                 <c:forEach var="condicaoClimatica" items="${condicaoClimatica}">
                     <option value="${condicaoClimatica}" ${relatorio.condicaoClimatica == condicaoClimatica ? 'selected' : ''}>
                         ${condicaoClimatica.descricao}
@@ -53,7 +54,7 @@
 
         <div class="form-group">
             <label>Tempo :</label>
-            <select name="tempo">
+            <select name="tempo" required>
                 <c:forEach var="tempo" items="${tempo}">
                     <option value="${tempo}" ${relatorio.tempo == tempo ? 'selected' : ''}>
                         ${tempo.descricao}
@@ -64,7 +65,7 @@
 
         <div class="form-group">
             <label>Condição :</label>
-            <select name="condicao">
+            <select name="condicao" required>
                 <option value="true" ${relatorio.condicao ? 'selected' : ''}>Trabalhável</option>
                 <option value="false" ${!relatorio.condicao ? 'selected' : ''}>Inviável</option>
             </select>
@@ -101,7 +102,7 @@
 
                 <div class="form-group">
                     <label>Pavimento :</label>
-                    <select name="naoConformidades[].pavimento">
+                    <select name="naoConformidades[].pavimento" required>
                         <c:forEach var="p" items="${pavimento}">
                             <option value="${p}" ${naoConformidade.pavimento == p ? 'selected' : ''}>${p.descricao}</option>
                         </c:forEach>
@@ -110,7 +111,7 @@
 
                 <div class="form-group">
                     <label>Etapa da Obra :</label>
-                    <select name="naoConformidades[].etapaDaObra">
+                    <select name="naoConformidades[].etapaDaObra" required>
                         <c:forEach var="e" items="${etapaDaObra}">
                             <option value="${e}" ${naoConformidade.etapaDaObra == e ? 'selected' : ''}>${e.descricao}</option>
                         </c:forEach>
@@ -119,7 +120,7 @@
 
                 <div class="form-group">
                     <label>Tipo de Não Conformidade :</label>
-                    <select name="naoConformidades[].tipoDeNaoConformidade">
+                    <select name="naoConformidades[].tipoDeNaoConformidade" required>
                         <c:forEach var="tipoNC" items="${tipoDeNaoConformidade}">
                             <option value="${tipoNC}" ${naoConformidade.tipoDeNaoConformidade == tipoNC ? 'selected' : ''}>${tipoNC.descricao}</option>
                         </c:forEach>

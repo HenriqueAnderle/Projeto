@@ -62,7 +62,7 @@ public class EmailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	    response.setCharacterEncoding("UTF-8");
 	    response.setContentType("text/html; charset=UTF-8");
-		
+	    
 		String action = request.getServletPath();
 
 		try {
@@ -119,9 +119,12 @@ public class EmailServlet extends HttpServlet {
             for (String email : emailDestinatarios) {
                 try {
                     InternetAddress ia = new InternetAddress(email);
-                    ia.validate(); 
-
-                    destinatarios.add(email);
+                    ia.validate();
+                    
+                    if (!destinatarios.contains(email)) {
+                        destinatarios.add(email);
+                    }
+                    
                 } catch (AddressException e) {
                     System.out.println("Email inválido: " + email);
                 }
@@ -137,7 +140,10 @@ public class EmailServlet extends HttpServlet {
                 InternetAddress ia = new InternetAddress(email);
                 ia.validate();
 
-                destinatarios.add(email);
+                if (!destinatarios.contains(email)) {
+                    destinatarios.add(email);
+                }
+                
             } catch (AddressException e) {
                 System.out.println("Email inválido no contato: " + email);
             }
@@ -157,7 +163,19 @@ public class EmailServlet extends HttpServlet {
 		
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
 		
+		Usuario usuarioRecuperado = daoUsuario.recuperarUsuario(usuario);
+				
 		List<String> destinatarios = (List<String>) sessao.getAttribute("destinatarios");
+		
+		if (request.getParameter("emailRemetente") != null) {
+			
+			String emailUsuario = usuarioRecuperado.getEmail();
+            		
+			if (!destinatarios.contains(emailUsuario)) {
+                destinatarios.add(emailUsuario);
+            }
+			
+		}
 
 		if (destinatarios == null || destinatarios.isEmpty()) {
 		    
@@ -213,9 +231,23 @@ public class EmailServlet extends HttpServlet {
 		HttpSession sessao = request.getSession();
 		
 		Usuario usuario = (Usuario) sessao.getAttribute("usuarioLogado");
+		
+		SolicitacaoMateriaisServicos solicitacao = (SolicitacaoMateriaisServicos) sessao.getAttribute("solicitacaoMateriaisServicos");
+		
+		Usuario usuarioRecuperado = daoUsuario.recuperarUsuario(usuario);
         
 		List<String> destinatarios = (List<String>) sessao.getAttribute("destinatarios");
 
+		if (request.getParameter("emailRemetente") != null) {
+			
+			String emailUsuario = usuarioRecuperado.getEmail();
+            		
+			if (!destinatarios.contains(emailUsuario)) {
+                destinatarios.add(emailUsuario);
+            }
+			
+		}
+		
 		if (destinatarios == null || destinatarios.isEmpty()) {
 		    
 		    request.setAttribute("erroEmail", "Nenhum E-Mail foi Informado.");
@@ -233,6 +265,20 @@ public class EmailServlet extends HttpServlet {
 		    return;
 		}
         
+		boolean logo = solicitacao.getLogo();
+		
+		if(logo == true) {
+		
+		long contadorSolicitacao = (usuario.proximaSolicitacao(usuario));
+	    daoUsuario.atualizarUsuarioContadorSolicitacao(usuario, contadorSolicitacao);
+		
+		}else {
+			
+			long contadorSolicitacao2 = (usuario.proximaSolicitacao2(usuario));
+		    daoUsuario.atualizarUsuarioContadorSolicitacao2(usuario, contadorSolicitacao2);
+			
+		}
+		
         try {
 		
         Email emailService = new Email();
@@ -240,9 +286,16 @@ public class EmailServlet extends HttpServlet {
         byte[] pdf = (byte[]) request.getSession().getAttribute("pdfGerado");
         
         String mensagem = "Solicitação de Materiais e Serviços";
-                
-        emailService.enviarRelatorio(usuario, destinatarios, mensagem, pdf);
-
+        
+        logo = solicitacao.getLogo();
+        
+        if(logo == true) {
+        	emailService.enviarRelatorio(usuario, destinatarios, mensagem, pdf);
+        }
+        if(logo == false) {
+        	emailService.enviarSolicitacaoMannz(usuario, destinatarios, mensagem, pdf);
+        }
+        
         request.getSession().setAttribute("pdfGerado", pdf);
         
         List<Contato> contatosAdicionados = daoContato.recuperarContatosAdicionados(usuario);

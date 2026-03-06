@@ -4,11 +4,20 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto</title>
+
+	<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/login.css">
 </head>
 <body>
+
+<c:if test="${not empty usuarioLogado}">
+    <script>
+        window.location.href = '<%=request.getContextPath()%>/home.jsp';
+    </script>
+</c:if>
 
 <a class="btn-cadastro" href="<%=request.getContextPath()%>/novo-usuario">
     Cadastro
@@ -30,9 +39,9 @@
                 <input type="password" name="senha" placeholder="Senha" required>
             </div>
 
-            <button type="submit" class="btn-login">
-                Avançar
-            </button>
+			<input type="checkbox" name="lembrar" value="true"> Lembrar-me
+
+            <button type="submit" class="btn-login">Avançar</button>
 
         </form>
 

@@ -9,6 +9,7 @@
 body {
     min-height: 100vh;
     background-color: #eef3f6;
+    padding: 20px;
 }
 
 /* LOGOUT */
@@ -27,16 +28,17 @@ body {
 
 /* CONTEÚDO CENTRAL */
 .home-container {
-    height: 70vh;
+    min-height: 75vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 30px;
+    text-align: center;
 }
 
 .home-container h1 {
-    font-size: 22px;
+    font-size: 24px;
     color: #333;
 }
 
@@ -44,27 +46,33 @@ body {
 .acoes {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .btn-acao {
-    padding: 10px 26px;
+    padding: 12px 26px;
     background-color: #b7cbd4;
     color: #4B5459;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: 15px;
     text-align: center;
+    transition: all 0.2s ease;
 }
 
 .btn-acao:hover {
     background-color: #9fb9c5;
+    transform: translateY(-2px);
 }
 
 /* TABELA */
 .tabela-container {
-    width: 80%;
-    margin: 0 auto 40px auto;
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    overflow-x: auto;
 }
 
 table {
@@ -73,6 +81,7 @@ table {
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
+    min-width: 600px;
 }
 
 thead {
@@ -98,4 +107,33 @@ tr:nth-child(even) {
 
 .btn-deletar:hover {
     text-decoration: underline;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .home-container h1 {
+        font-size: 20px;
+    }
+
+    .acoes {
+        max-width: 100%;
+    }
+
+    .btn-acao {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .btn-logout {
+        font-size: 18px;
+    }
+
+    table {
+        min-width: 500px;
+    }
 }

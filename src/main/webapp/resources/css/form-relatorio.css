@@ -9,23 +9,31 @@
 body {
     background-color: #eef3f6;
     min-height: 100vh;
+    padding: 20px;
 }
 
 /* VOLTAR */
 .btn-voltar {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    font-size: 22px;
+    font-size: clamp(20px, 4vw, 24px);
     text-decoration: none;
     color: #000;
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+.btn-voltar:hover {
+    transform: scale(1.1);
 }
 
 /* TÍTULO */
 .titulo {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 60px;
+    margin-bottom: 25px;
+    font-size: clamp(20px, 4vw, 28px);
 }
 
 /* CENTRALIZA */
@@ -37,77 +45,97 @@ body {
 /* CARD */
 .card {
     background-color: #fff;
-    width: 420px;
-    padding: 20px;
-    border-radius: 18px;
+    width: min(100%, 900px);
+    padding: clamp(20px, 4vw, 30px);
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.08),
+        0 10px 20px rgba(0,0,0,0.05);
 }
 
 /* CAMPOS */
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 label {
-    font-size: 13px;
-    margin-bottom: 4px;
+    font-size: clamp(13px, 3vw, 14px);
+    margin-bottom: 5px;
 }
 
-/* INPUTS / SELECT / TEXTAREA */
+/* INPUTS */
 input,
 select,
 textarea {
-    border: 1px solid #000;
-    border-radius: 6px;
-    padding: 6px 8px;
-    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: clamp(13px, 3vw, 15px);
+    transition: 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #4f5b60;
+    box-shadow: 0 0 0 2px rgba(79,91,96,0.1);
 }
 
 textarea {
-    min-height: 70px;
-    resize: none;
+    min-height: 80px;
+    resize: vertical;
 }
 
-/* LINHA COM 3 CAMPOS */
+/* LINHA 3 RESPONSIVA */
 .linha-3 {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .linha-3 .form-group {
     flex: 1;
+    min-width: 180px;
 }
 
 /* SEÇÕES */
 h2 {
-    margin-top: 18px;
-    margin-bottom: 8px;
-    font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-size: clamp(16px, 3vw, 20px);
 }
 
 /* BOTÃO + */
 .btn-add {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border: none;
     background-color: #4f5b60;
     color: #fff;
-    border-radius: 6px;
-    font-size: 18px;
+    border-radius: 8px;
+    font-size: 20px;
     cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s ease;
+}
+
+.btn-add:hover {
+    transform: scale(1.1);
 }
 
 /* ITENS DINÂMICOS */
 #vistoriadoresContainer > div,
 #naoConformidadesContainer > div {
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 15px;
     position: relative;
 }
 
-/* BOTÃO REMOVER (X) */
+/* REMOVER */
 .remover,
 .removerVistoriador {
     position: absolute;
@@ -115,38 +143,69 @@ h2 {
     right: 0;
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
 }
 
-/* IMAGEM */
+/* FILE INPUT */
 input[type="file"] {
     border: none;
 }
 
-/* AÇÕES FINAIS */
+/* AÇÕES */
 .acoes-finais {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.btn-primario,
+.btn-secundario {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: clamp(14px, 3vw, 16px);
+    transition: 0.3s ease;
 }
 
 .btn-primario {
-    flex: 1;
     background-color: #4f5b60;
     color: #fff;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
+}
+
+.btn-primario:hover {
+    background-color: #3e484c;
+    transform: translateY(-2px);
 }
 
 .btn-secundario {
-    flex: 1;
     background-color: #6c757d;
     color: #fff;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
+}
+
+.btn-secundario:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* MOBILE EXTRA */
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .titulo {
+        margin-top: 70px;
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
 }

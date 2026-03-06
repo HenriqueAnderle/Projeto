@@ -7,75 +7,182 @@
 
 /* FUNDO */
 body {
-    height: 100vh;
+    min-height: 100vh;
     background-color: #eef3f6;
+    padding: 20px;
 }
 
 /* BOTÃO VOLTAR */
 .btn-voltar {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    font-size: 22px;
+    font-size: clamp(20px, 4vw, 24px);
     text-decoration: none;
     color: #4f5b60;
+    z-index: 1000;
+    background: rgba(255,255,255,0.8);
+    padding: 8px 12px;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
 .btn-voltar:hover {
     color: #2f3a3f;
+    background: rgba(255,255,255,1);
+    transform: scale(1.1);
 }
 
 /* CENTRALIZA */
 .container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
-/* CARD */
+/* CARD RESPONSIVO */
 .card {
-    width: 320px;
-    padding: 30px;
-    background-color: #b7cbd4;
-    border-radius: 12px;
+    width: min(100% - 40px, 380px);
+    max-width: 400px;
+    padding: clamp(25px, 5vw, 40px);
+    background: linear-gradient(145deg, #b7cbd4, #d1dce3);
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px rgba(79,91,96,0.15),
+        0 10px 20px rgba(79,91,96,0.1);
+    position: relative;
+    backdrop-filter: blur(10px);
 }
 
-/* INPUTS */
+/* TÍTULO OPCIONAL */
+.card h2 {
+    text-align: center;
+    color: #2f3a3f;
+    margin-bottom: 30px;
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 600;
+}
+
+/* INPUTS RESPONSIVOS */
 .input-group {
     display: flex;
     align-items: center;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    padding: clamp(10px, 2vw, 14px) 16px;
+    margin-bottom: 18px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.input-group:hover,
+.input-group:focus-within {
     background-color: #fff;
-    border-radius: 8px;
-    padding: 8px 10px;
-    margin-bottom: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    border-color: #4f5b60;
 }
 
 .icon {
-    margin-right: 8px;
-    font-size: 14px;
-    opacity: 0.7;
+    margin-right: 12px;
+    font-size: clamp(16px, 3vw, 18px);
+    opacity: 0.8;
+    flex-shrink: 0;
 }
 
 .input-group input {
     border: none;
     outline: none;
     width: 100%;
-    font-size: 14px;
+    font-size: clamp(14px, 3vw, 16px);
+    background: transparent;
+    padding: 8px 0;
 }
 
-/* BOTÃO */
+/* BOTÃO RESPONSIVO */
 .btn-primario {
     width: 100%;
-    padding: 10px;
+    padding: clamp(14px, 3vw, 18px) 24px;
     border: none;
-    border-radius: 20px;
-    background-color: #4f5b60;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #4f5b60, #5a6670);
     color: #fff;
-    font-size: 15px;
+    font-size: clamp(15px, 3.5vw, 17px);
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(79,91,96,0.3);
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primario:hover {
-    background-color: #3e484c;
+    background: linear-gradient(145deg, #3e484c, #4f5b60);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(79,91,96,0.4);
+}
+
+.btn-primario:active {
+    transform: translateY(-1px);
+}
+
+/* EFEITO DE LOADING OPCIONAL */
+.btn-primario.loading {
+    pointer-events: none;
+}
+
+.btn-primario.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid transparent;
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVO PARA TELA MUITO PEQUENA */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .btn-voltar {
+        top: 15px;
+        left: 15px;
+    }
+}
+
+/* MODO DARK (OPCIONAL) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1f23;
+    }
+    
+    .card {
+        background: linear-gradient(145deg, #2f3a3f, #404f58);
+    }
+    
+    .input-group {
+        background-color: rgba(255,255,255,0.1);
+        color: #fff;
+    }
 }

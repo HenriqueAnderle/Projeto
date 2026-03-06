@@ -63,7 +63,7 @@ public class PdfRelatorioNaoConformidade {
         info.setWidths(new float[]{2.0f, 0.5f, 2.5f, 1.5f, 2.0f, 1.5f});
         info.setWidthPercentage(100);
         
-        PdfPCell titleCell = new PdfPCell(new Phrase("RELATÓRIO SEMANAL DE VISTORIA DE OBRA", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE)));
+        PdfPCell titleCell = new PdfPCell(new Phrase("RELATÓRIO DE VISTORIA DE OBRA", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE)));
         titleCell.setColspan(6);
         titleCell.setBackgroundColor(cinzaEscuro);
         titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);

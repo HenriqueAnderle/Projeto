@@ -7,7 +7,9 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
-	private long contadorRelatorio;
+	private long contadorRelatorio = 0;
+	private long contadorSolicitacao = 0;
+	private long contadorSolicitacao2 = 0;
 	
 	public Usuario(long idUsuario, String nome, String email, String senha) {
 		setIdUsuario(idUsuario);
@@ -16,12 +18,14 @@ public class Usuario {
 		setSenha(senha);
 	}
 	
-	public Usuario(long idUsuario, String nome, String email, String senha, long contadorRelatorio) {
+	public Usuario(long idUsuario, String nome, String email, String senha, long contadorRelatorio, long contadorSolicitacao, long contadorSolicitacao2) {
 		setIdUsuario(idUsuario);
 		setNome(nome);
 		setEmail(email);
 		setSenha(senha);
 		setContadorRelatorio(contadorRelatorio);
+		setContadorSolicitacao(contadorSolicitacao);
+		setContadorSolicitacao2(contadorSolicitacao2);
 	}
 	
 	public Usuario(String nome, String email, String senha) {
@@ -30,11 +34,13 @@ public class Usuario {
 		setSenha(senha);
 	}
 	
-	public Usuario(String nome, String email, String senha, long contadorRelatorio) {
+	public Usuario(String nome, String email, String senha, long contadorRelatorio, long contadorSolicitacao, long contadorSolicitacao2) {
 		setNome(nome);
 		setEmail(email);
 		setSenha(senha);
 		setContadorRelatorio(contadorRelatorio);
+		setContadorSolicitacao(contadorSolicitacao);
+		setContadorSolicitacao2(contadorSolicitacao2);
 	}
 	
 	public Usuario(String email, String senha) {
@@ -86,11 +92,41 @@ public class Usuario {
 		this.contadorRelatorio = contadorRelatorio;
 	}
 	
+	public long getContadorSolicitacao() {
+		return contadorSolicitacao;
+	}
+	
+	public void setContadorSolicitacao(long contadorSolicitacao) {
+		this.contadorSolicitacao = contadorSolicitacao;
+	}
+	
+	public long getContadorSolicitacao2() {
+		return contadorSolicitacao2;
+	}
+	
+	public void setContadorSolicitacao2(long contadorSolicitacao2) {
+		this.contadorSolicitacao2 = contadorSolicitacao2;
+	}
+	
 	public long proximoRelatorio(Usuario usuario) {
 		
 		contadorRelatorio = usuario.getContadorRelatorio();
 		
 		return ++contadorRelatorio;
+	}
+	
+	public long proximaSolicitacao(Usuario usuario) {
+		
+		contadorSolicitacao = usuario.getContadorSolicitacao();
+		
+		return ++contadorSolicitacao;
+	}
+	
+	public long proximaSolicitacao2(Usuario usuario) {
+		
+		contadorSolicitacao2 = usuario.getContadorSolicitacao2();
+		
+		return ++contadorSolicitacao2;
 	}
 	
 }

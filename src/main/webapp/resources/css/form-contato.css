@@ -7,27 +7,31 @@
 
 /* FUNDO */
 body {
-    height: 100vh;
+    min-height: 100vh;
     background-color: #eef3f6;
+    padding: 20px;
 }
 
-/* VOLTAR */
+/* BOTÃO VOLTAR */
 .btn-voltar {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    font-size: 22px;
+    font-size: clamp(20px, 4vw, 24px);
     text-decoration: none;
     color: #4f5b60;
+    transition: 0.3s ease;
+    z-index: 1000;
 }
 
 .btn-voltar:hover {
     color: #2f3a3f;
+    transform: scale(1.1);
 }
 
 /* CENTRALIZA */
 .container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,10 +39,18 @@ body {
 
 /* CARD */
 .card {
-    width: 320px;
-    padding: 30px;
-    background-color: #b7cbd4;
-    border-radius: 12px;
+    width: min(100%, 380px);
+    padding: clamp(25px, 5vw, 35px);
+    background: linear-gradient(145deg, #b7cbd4, #d1dce3);
+    border-radius: 16px;
+    box-shadow: 
+        0 15px 35px rgba(79,91,96,0.15),
+        0 8px 15px rgba(79,91,96,0.1);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
 }
 
 /* INPUTS */
@@ -46,14 +58,22 @@ body {
     display: flex;
     align-items: center;
     background-color: #fff;
-    border-radius: 8px;
-    padding: 8px 10px;
-    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: clamp(10px, 2vw, 14px) 14px;
+    margin-bottom: 18px;
+    transition: 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.input-group:hover,
+.input-group:focus-within {
+    border-color: #4f5b60;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
 .icon {
-    margin-right: 8px;
-    font-size: 14px;
+    margin-right: 10px;
+    font-size: clamp(14px, 3vw, 18px);
     opacity: 0.7;
 }
 
@@ -61,21 +81,38 @@ body {
     border: none;
     outline: none;
     width: 100%;
-    font-size: 14px;
+    font-size: clamp(14px, 3vw, 16px);
+    background: transparent;
 }
 
 /* BOTÃO */
 .btn-primario {
     width: 100%;
-    padding: 10px;
+    padding: clamp(12px, 3vw, 16px);
     border: none;
-    border-radius: 20px;
-    background-color: #4f5b60;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #4f5b60, #5a6670);
     color: #fff;
-    font-size: 15px;
+    font-size: clamp(14px, 3vw, 16px);
+    font-weight: 600;
     cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 20px rgba(79,91,96,0.25);
 }
 
 .btn-primario:hover {
-    background-color: #3e484c;
+    background: linear-gradient(145deg, #3e484c, #4f5b60);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(79,91,96,0.35);
+}
+
+.btn-primario:active {
+    transform: translateY(0);
+}
+
+/* TELAS MUITO PEQUENAS */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
 }

@@ -4,6 +4,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório Vistoria</title>
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/form-relatorio.css">
@@ -40,7 +41,7 @@
     <div class="linha-3">
         <div class="form-group">
             <label>Condição Climática :</label>
-				<select name="condicaoClimatica">
+				<select name="condicaoClimatica" required>
 				    <c:forEach var="condicaoClimatica" items="${condicaoClimatica}">
 				        <option value="${condicaoClimatica}">
 				            ${condicaoClimatica.descricao}
@@ -51,7 +52,7 @@
 
         <div class="form-group">
             <label>Tempo :</label>
-				<select name="tempo">
+				<select name="tempo" required>
 				    <c:forEach var="tempo" items="${tempo}">
 				        <option value="${tempo}">
 				            ${tempo.descricao}
@@ -62,7 +63,7 @@
 
         <div class="form-group">
             <label>Condição :</label>
-				<select name="condicao">
+				<select name="condicao" required>
 				    <option value="true">Trabalhável</option>
 				
 				    <option value="false">Inviável</option>
@@ -116,7 +117,7 @@
 
     <div class="form-group">
         <label>Pavimento :</label>
-        <select data-name="pavimento">
+        <select data-name="pavimento" required>
             <c:forEach var="p" items="${pavimento}">
                 <option value="${p}">${p.descricao}</option>
             </c:forEach>
@@ -125,7 +126,7 @@
 
     <div class="form-group">
         <label>Etapa da Obra :</label>
-        <select data-name="etapaDaObra">
+        <select data-name="etapaDaObra" required>
             <c:forEach var="e" items="${etapaDaObra}">
                 <option value="${e}">${e.descricao}</option>
             </c:forEach>
@@ -134,7 +135,7 @@
 
     <div class="form-group">
         <label>Tipo de Não Conformidade :</label>
-        <select data-name="tipoDeNaoConformidade">
+        <select data-name="tipoDeNaoConformidade" required>
             <c:forEach var="tipoNC" items="${tipoDeNaoConformidade}">
                 <option value="${tipoNC}">${tipoNC.descricao}</option>
             </c:forEach>
