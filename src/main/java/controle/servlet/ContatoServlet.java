@@ -141,8 +141,7 @@ public class ContatoServlet extends HttpServlet {
 		
 		dao.atualizarContato(new Contato(idContato, nome, email));
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("");
-		dispatcher.forward(request, response);
+		response.sendRedirect("contatos");
 		
 	}
 	
