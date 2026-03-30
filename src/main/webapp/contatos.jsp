@@ -11,12 +11,12 @@
 </head>
 <body>
 
-<!-- VOLTAR -->
+
 <a class="btn-voltar" href="voltar-home" title="Voltar">
     ←
 </a>
 
-<!-- NOVO CONTATO -->
+
 <a class="btn-novo" href="<%=request.getContextPath()%>/novo-contato">
     Novo Contato
 </a>
@@ -34,12 +34,10 @@
                     <span class="email">${contato.email}</span>
                 </div>
 
-                <a class="btn-excluir"
-                   href="deletar-contato?idContato=${contato.idContato}"
-                   title="Excluir">
-                    ✕
-                </a>
-
+                <a class="btn-excluir" href="deletar-contato?idContato=${contato.idContato}" title="Excluir">✕</a>
+				
+				<a class="btn-excluir" href="atualizar-contato?idContato=${contato.idContato}" title="Editar">Editar</a>
+				
             </div>
         </c:forEach>
     </div>

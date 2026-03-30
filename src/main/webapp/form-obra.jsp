@@ -24,7 +24,7 @@
 
             <div class="input-group">
                 <span class="icon">👤</span>
-                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="nome" placeholder="Nome" value="${obra.nome}" required>
             </div>
 
             <button type="submit" class="btn-primario">

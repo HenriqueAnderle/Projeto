@@ -11,12 +11,10 @@
 </head>
 <body>
 
-<!-- VOLTAR -->
 <a class="btn-voltar" href="voltar-home" title="Voltar">
     ←
 </a>
 
-<!-- NOVO CONTATO -->
 <a class="btn-novo" href="<%=request.getContextPath()%>/nova-obra">
     Nova Obra
 </a>
@@ -35,11 +33,9 @@
                 <span class="nome">${obra.nome}</span>
             </div>
 
-            <a class="btn-excluir"
-               href="deletar-obra?idObra=${obra.idObra}"
-               title="Excluir">
-                ✕
-            </a>
+            <a class="btn-excluir" href="editar-obra?idObra=${obra.idObra}" title="Excluir">✕</a>
+            
+            <a class="btn-excluir" href="editar-obra?idObra=${obra.idObra}" title="Editar">Editar</a>
 
         </div>
     </c:forEach>

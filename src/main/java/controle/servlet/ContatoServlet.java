@@ -127,7 +127,7 @@ public class ContatoServlet extends HttpServlet {
 		
 		request.setAttribute("contato", contato);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("form-contato.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -211,13 +211,5 @@ public class ContatoServlet extends HttpServlet {
 	    dispatcher.forward(request, response);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

@@ -24,12 +24,12 @@
 
             <div class="input-group">
                 <span class="icon">👤</span>
-                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="nome" placeholder="Nome" value="${contato.nome}" required>
             </div>
 
             <div class="input-group">
                 <span class="icon">@</span>
-                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="email" name="email" placeholder="E-mail" value="${contato.email}" required>
             </div>
 
             <button type="submit" class="btn-primario">
